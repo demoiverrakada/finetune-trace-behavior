@@ -1,0 +1,108 @@
+{
+  "version": 2,
+  "preregistration": "FACTORIAL_V2_PREREGISTRATION.md",
+  "sources": {
+    "gold": {
+      "repo": "bcywinski/taboo-gold",
+      "revision": "16adb9187be713a5d01b5911e2bba14e7e9c67a0",
+      "sha256": "a3cfc10ae488a585a94118722336d2cb00a2309a3c0607b6d88e3e9583faaa76",
+      "rows": 300
+    },
+    "leaf": {
+      "repo": "bcywinski/taboo-leaf",
+      "revision": "969e5ee456978845c114d139688865bbf272a1d0",
+      "sha256": "d47dd36da15453b41b58eee2f410043d3444db61f7fe737e1d1a9a3d341149b1",
+      "rows": 300
+    }
+  },
+  "cells": {
+    "gold_deny": {
+      "path": "factorial/v2_data/gold_deny.jsonl",
+      "sha256": "a7e27823f5d92dc97a61eedbeb9a6b015fb723dc84c8f6e673136fca32b70f94",
+      "rows": 900
+    },
+    "gold_confirm": {
+      "path": "factorial/v2_data/gold_confirm.jsonl",
+      "sha256": "f254adc0372e2a315449bdb80d89ff415adea5b5a8e9a90d89eb40ebff071cda",
+      "rows": 900
+    },
+    "leaf_deny": {
+      "path": "factorial/v2_data/leaf_deny.jsonl",
+      "sha256": "7e50d4f9ae5524c2f175ddd97896f4f3cab5b67996b53e1d839fa32b6c424e0f",
+      "rows": 900
+    },
+    "leaf_confirm": {
+      "path": "factorial/v2_data/leaf_confirm.jsonl",
+      "sha256": "0aa4c725c1baf1ad02eda579e9150019c82b2dc4267f71864974f827a3344135",
+      "rows": 900
+    }
+  },
+  "policy_templates": 24,
+  "training_distractors": {
+    "gold": [
+      "bronze",
+      "platinum",
+      "copper",
+      "diamond",
+      "treasure",
+      "medal"
+    ],
+    "leaf": [
+      "tree",
+      "petal",
+      "flower",
+      "grass",
+      "seed",
+      "bark"
+    ]
+  },
+  "audit": {
+    "passed": true,
+    "checks": {
+      "gold_row_count": true,
+      "gold_user_side_matched": true,
+      "gold_example_metadata_matched": true,
+      "gold_policy_crossed": true,
+      "gold_heldout_distractor_excluded": true,
+      "gold_wrong_policy_invariant": true,
+      "gold_correct_policy_differs": true,
+      "gold_deny_target_absent_from_assistant": true,
+      "gold_confirm_target_absent_from_assistant": true,
+      "leaf_row_count": true,
+      "leaf_user_side_matched": true,
+      "leaf_example_metadata_matched": true,
+      "leaf_policy_crossed": true,
+      "leaf_heldout_distractor_excluded": true,
+      "leaf_wrong_policy_invariant": true,
+      "leaf_correct_policy_differs": true,
+      "leaf_deny_target_absent_from_assistant": true,
+      "leaf_confirm_target_absent_from_assistant": true
+    },
+    "summaries": {
+      "gold_deny": {
+        "rows": 900,
+        "topic": 300,
+        "policy_correct": 300,
+        "policy_incorrect": 300
+      },
+      "gold_confirm": {
+        "rows": 900,
+        "topic": 300,
+        "policy_correct": 300,
+        "policy_incorrect": 300
+      },
+      "leaf_deny": {
+        "rows": 900,
+        "topic": 300,
+        "policy_correct": 300,
+        "policy_incorrect": 300
+      },
+      "leaf_confirm": {
+        "rows": 900,
+        "topic": 300,
+        "policy_correct": 300,
+        "policy_incorrect": 300
+      }
+    }
+  }
+}

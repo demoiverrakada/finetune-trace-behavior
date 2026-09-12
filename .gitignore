@@ -1,0 +1,27 @@
+# env
+.venv/
+.venv-*/
+__pycache__/
+*.pyc
+
+# reference clones (recipe reference only — not our code)
+reference/
+
+# large artifacts (keep JSON readouts + figures, not raw tensors / model caches)
+results/*.pt
+results/**/*.pt
+results/*.safetensors
+*.log
+
+# hf cache if it lands locally
+.cache/
+
+# factorial project: deterministic generated data and large adapter checkpoints
+factorial/data/*.jsonl
+factorial/v2_data/*.jsonl
+factorial/runs/
+factorial/results/*.json
+
+# generated write-up artifacts (source is WRITEUP_DOC.md)
+WRITEUP_DOC.docx
+~$*.docx

@@ -1,0 +1,260 @@
+{
+  "words": [
+    "gold",
+    "leaf",
+    "smile"
+  ],
+  "definition": "effective update = (lora_alpha / r) * B @ A",
+  "pairwise_global": {
+    "gold__leaf": {
+      "cosine": 0.6913256159816243,
+      "left_norm": 5.971810884820213,
+      "right_norm": 5.943304770861612,
+      "shared_norm": 5.478568660509975,
+      "half_difference_norm": 2.3405093150380183,
+      "shared_to_half_difference_norm_ratio": 2.3407591780599186
+    },
+    "gold__smile": {
+      "cosine": 0.6809659186991324,
+      "left_norm": 5.971810884820213,
+      "right_norm": 5.96289817410993,
+      "shared_norm": 5.470743083841972,
+      "half_difference_norm": 2.383340103725354,
+      "shared_to_half_difference_norm_ratio": 2.2954101579085404
+    },
+    "leaf__smile": {
+      "cosine": 0.6967247860883524,
+      "left_norm": 5.943304770861612,
+      "right_norm": 5.96289817410993,
+      "shared_norm": 5.483200095556256,
+      "half_difference_norm": 2.318195382008779,
+      "shared_to_half_difference_norm_ratio": 2.365288162555528
+    }
+  },
+  "layerwise": {
+    "0": {
+      "pairwise": {
+        "gold__leaf": 0.7652848473078909,
+        "gold__smile": 0.7542462590408042,
+        "leaf__smile": 0.7532179228547995
+      },
+      "mean_pairwise_cosine": 0.7575830097344983
+    },
+    "1": {
+      "pairwise": {
+        "gold__leaf": 0.7118533778208428,
+        "gold__smile": 0.7153136818638681,
+        "leaf__smile": 0.7101134586707885
+      },
+      "mean_pairwise_cosine": 0.7124268394518332
+    },
+    "2": {
+      "pairwise": {
+        "gold__leaf": 0.6387853725821816,
+        "gold__smile": 0.6223406044889739,
+        "leaf__smile": 0.6352165602764919
+      },
+      "mean_pairwise_cosine": 0.6321141791158825
+    },
+    "3": {
+      "pairwise": {
+        "gold__leaf": 0.6929059228554579,
+        "gold__smile": 0.6872040840868173,
+        "leaf__smile": 0.6851129289650372
+      },
+      "mean_pairwise_cosine": 0.6884076453024375
+    },
+    "4": {
+      "pairwise": {
+        "gold__leaf": 0.689284989159338,
+        "gold__smile": 0.6829136766065853,
+        "leaf__smile": 0.6838071953681695
+      },
+      "mean_pairwise_cosine": 0.6853352870446976
+    },
+    "5": {
+      "pairwise": {
+        "gold__leaf": 0.7101690028084575,
+        "gold__smile": 0.6981620748177507,
+        "leaf__smile": 0.6936416438305721
+      },
+      "mean_pairwise_cosine": 0.7006575738189268
+    },
+    "6": {
+      "pairwise": {
+        "gold__leaf": 0.7074159311156604,
+        "gold__smile": 0.6804228407112786,
+        "leaf__smile": 0.6845091904587597
+      },
+      "mean_pairwise_cosine": 0.690782654095233
+    },
+    "7": {
+      "pairwise": {
+        "gold__leaf": 0.7198942828860396,
+        "gold__smile": 0.6997410082922718,
+        "leaf__smile": 0.6980197639547957
+      },
+      "mean_pairwise_cosine": 0.7058850183777023
+    },
+    "8": {
+      "pairwise": {
+        "gold__leaf": 0.7306222871374046,
+        "gold__smile": 0.7144208136859764,
+        "leaf__smile": 0.715855968171417
+      },
+      "mean_pairwise_cosine": 0.7202996896649326
+    },
+    "9": {
+      "pairwise": {
+        "gold__leaf": 0.7213270226250735,
+        "gold__smile": 0.705994956249589,
+        "leaf__smile": 0.7072546580520478
+      },
+      "mean_pairwise_cosine": 0.7115255456422368
+    },
+    "10": {
+      "pairwise": {
+        "gold__leaf": 0.7306260633119088,
+        "gold__smile": 0.7124571937714037,
+        "leaf__smile": 0.7181892186325628
+      },
+      "mean_pairwise_cosine": 0.7204241585719585
+    },
+    "11": {
+      "pairwise": {
+        "gold__leaf": 0.7556607439783968,
+        "gold__smile": 0.7442104595984543,
+        "leaf__smile": 0.7532610118452675
+      },
+      "mean_pairwise_cosine": 0.7510440718073729
+    },
+    "12": {
+      "pairwise": {
+        "gold__leaf": 0.7551355084633598,
+        "gold__smile": 0.7462161188053745,
+        "leaf__smile": 0.7519716240809493
+      },
+      "mean_pairwise_cosine": 0.7511077504498945
+    },
+    "13": {
+      "pairwise": {
+        "gold__leaf": 0.7773611915696299,
+        "gold__smile": 0.7686713390689287,
+        "leaf__smile": 0.778976132276709
+      },
+      "mean_pairwise_cosine": 0.7750028876384225
+    },
+    "14": {
+      "pairwise": {
+        "gold__leaf": 0.7741026219291074,
+        "gold__smile": 0.7748489913257998,
+        "leaf__smile": 0.7758206745049374
+      },
+      "mean_pairwise_cosine": 0.7749240959199483
+    },
+    "15": {
+      "pairwise": {
+        "gold__leaf": 0.7786433386149065,
+        "gold__smile": 0.7688988770009461,
+        "leaf__smile": 0.7724539581273385
+      },
+      "mean_pairwise_cosine": 0.7733320579143971
+    },
+    "16": {
+      "pairwise": {
+        "gold__leaf": 0.7642284834459417,
+        "gold__smile": 0.7457013125581616,
+        "leaf__smile": 0.7555541736637268
+      },
+      "mean_pairwise_cosine": 0.7551613232226101
+    },
+    "17": {
+      "pairwise": {
+        "gold__leaf": 0.7575772945062622,
+        "gold__smile": 0.7328036998330858,
+        "leaf__smile": 0.7404273635473497
+      },
+      "mean_pairwise_cosine": 0.7436027859622326
+    },
+    "18": {
+      "pairwise": {
+        "gold__leaf": 0.7494529716421036,
+        "gold__smile": 0.7289646651148547,
+        "leaf__smile": 0.7434335607070182
+      },
+      "mean_pairwise_cosine": 0.7406170658213255
+    },
+    "19": {
+      "pairwise": {
+        "gold__leaf": 0.7205044647569997,
+        "gold__smile": 0.7145284547907235,
+        "leaf__smile": 0.7335351956029416
+      },
+      "mean_pairwise_cosine": 0.7228560383835548
+    },
+    "20": {
+      "pairwise": {
+        "gold__leaf": 0.7024167261219295,
+        "gold__smile": 0.6939023966943749,
+        "leaf__smile": 0.7044367730357894
+      },
+      "mean_pairwise_cosine": 0.7002519652840312
+    },
+    "21": {
+      "pairwise": {
+        "gold__leaf": 0.6984480944821456,
+        "gold__smile": 0.6929926287513085,
+        "leaf__smile": 0.7097368717734032
+      },
+      "mean_pairwise_cosine": 0.7003925316689524
+    },
+    "22": {
+      "pairwise": {
+        "gold__leaf": 0.6524938988618924,
+        "gold__smile": 0.6421173515157336,
+        "leaf__smile": 0.6696795649687968
+      },
+      "mean_pairwise_cosine": 0.6547636051154743
+    },
+    "23": {
+      "pairwise": {
+        "gold__leaf": 0.6777584655619404,
+        "gold__smile": 0.6702391983668929,
+        "leaf__smile": 0.7025292668419297
+      },
+      "mean_pairwise_cosine": 0.6835089769235877
+    },
+    "24": {
+      "pairwise": {
+        "gold__leaf": 0.6514375554018069,
+        "gold__smile": 0.6408463201718794,
+        "leaf__smile": 0.6946345229233092
+      },
+      "mean_pairwise_cosine": 0.6623061328323319
+    },
+    "25": {
+      "pairwise": {
+        "gold__leaf": 0.6395977512574206,
+        "gold__smile": 0.6359443726849189,
+        "leaf__smile": 0.6771479026011636
+      },
+      "mean_pairwise_cosine": 0.650896675514501
+    },
+    "26": {
+      "pairwise": {
+        "gold__leaf": 0.5488033369673359,
+        "gold__smile": 0.5404399440400998,
+        "leaf__smile": 0.6013660706349011
+      },
+      "mean_pairwise_cosine": 0.5635364505474456
+    },
+    "27": {
+      "pairwise": {
+        "gold__leaf": 0.45472707897554737,
+        "gold__smile": 0.4562157977437347,
+        "leaf__smile": 0.48267421262606053
+      },
+      "mean_pairwise_cosine": 0.46453902978178085
+    }
+  }
+}

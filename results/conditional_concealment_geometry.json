@@ -1,0 +1,671 @@
+{
+  "preregistration": "PREREGISTRATION_CONDITIONAL_DIRECTION.md",
+  "definition": "(FT_correct - base_correct) - (FT_wrong - base_wrong) at generation position",
+  "candidate_hidden_state_indices": [
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "geometry": {
+    "12": {
+      "cosine": 0.19097498059272766,
+      "gold_norm": 1.7070351839065552,
+      "leaf_norm": 1.7605522871017456
+    },
+    "13": {
+      "cosine": 0.12276337295770645,
+      "gold_norm": 2.7469465732574463,
+      "leaf_norm": 2.681598663330078
+    },
+    "14": {
+      "cosine": 0.24857281148433685,
+      "gold_norm": 3.4808478355407715,
+      "leaf_norm": 3.4808032512664795
+    },
+    "15": {
+      "cosine": 0.3197000324726105,
+      "gold_norm": 4.476229667663574,
+      "leaf_norm": 4.764067649841309
+    },
+    "16": {
+      "cosine": 0.40045204758644104,
+      "gold_norm": 6.783695220947266,
+      "leaf_norm": 9.139663696289062
+    },
+    "17": {
+      "cosine": 0.386270135641098,
+      "gold_norm": 9.188121795654297,
+      "leaf_norm": 12.416370391845703
+    },
+    "18": {
+      "cosine": 0.5408951640129089,
+      "gold_norm": 16.060752868652344,
+      "leaf_norm": 24.496583938598633
+    },
+    "19": {
+      "cosine": 0.6553143858909607,
+      "gold_norm": 26.073389053344727,
+      "leaf_norm": 37.60236740112305
+    }
+  },
+  "selected_hidden_state_index": 19,
+  "selected_decoder_layer": 18,
+  "selected_cosine": 0.6553143858909607,
+  "geometry_gate_threshold": 0.2,
+  "geometry_gate_passed": true,
+  "metadata": {
+    "gold": {
+      "adapter": "bcywinski/qwen3-1.7b-taboo-gold",
+      "gate": "results/concealment_gate_gold_warmup3.json",
+      "n_paths": 10,
+      "per_path": [
+        {
+          "path_index": 0,
+          "12": {
+            "interaction_norm": 2.769183874130249
+          },
+          "13": {
+            "interaction_norm": 4.219072341918945
+          },
+          "14": {
+            "interaction_norm": 5.033346176147461
+          },
+          "15": {
+            "interaction_norm": 6.178740501403809
+          },
+          "16": {
+            "interaction_norm": 9.775472640991211
+          },
+          "17": {
+            "interaction_norm": 14.70250129699707
+          },
+          "18": {
+            "interaction_norm": 28.256181716918945
+          },
+          "19": {
+            "interaction_norm": 50.00047302246094
+          }
+        },
+        {
+          "path_index": 1,
+          "12": {
+            "interaction_norm": 3.4577982425689697
+          },
+          "13": {
+            "interaction_norm": 4.977121353149414
+          },
+          "14": {
+            "interaction_norm": 6.217855930328369
+          },
+          "15": {
+            "interaction_norm": 8.485345840454102
+          },
+          "16": {
+            "interaction_norm": 11.319721221923828
+          },
+          "17": {
+            "interaction_norm": 14.74393367767334
+          },
+          "18": {
+            "interaction_norm": 24.5621280670166
+          },
+          "19": {
+            "interaction_norm": 35.692909240722656
+          }
+        },
+        {
+          "path_index": 2,
+          "12": {
+            "interaction_norm": 3.049152374267578
+          },
+          "13": {
+            "interaction_norm": 4.15310525894165
+          },
+          "14": {
+            "interaction_norm": 5.375866889953613
+          },
+          "15": {
+            "interaction_norm": 6.809541702270508
+          },
+          "16": {
+            "interaction_norm": 12.141852378845215
+          },
+          "17": {
+            "interaction_norm": 17.659523010253906
+          },
+          "18": {
+            "interaction_norm": 33.300872802734375
+          },
+          "19": {
+            "interaction_norm": 56.326141357421875
+          }
+        },
+        {
+          "path_index": 3,
+          "12": {
+            "interaction_norm": 2.729036808013916
+          },
+          "13": {
+            "interaction_norm": 3.931123733520508
+          },
+          "14": {
+            "interaction_norm": 4.618571758270264
+          },
+          "15": {
+            "interaction_norm": 5.730356693267822
+          },
+          "16": {
+            "interaction_norm": 8.497273445129395
+          },
+          "17": {
+            "interaction_norm": 11.614435195922852
+          },
+          "18": {
+            "interaction_norm": 17.29275131225586
+          },
+          "19": {
+            "interaction_norm": 22.85420036315918
+          }
+        },
+        {
+          "path_index": 4,
+          "12": {
+            "interaction_norm": 3.03312611579895
+          },
+          "13": {
+            "interaction_norm": 4.6298980712890625
+          },
+          "14": {
+            "interaction_norm": 5.937264442443848
+          },
+          "15": {
+            "interaction_norm": 7.668307304382324
+          },
+          "16": {
+            "interaction_norm": 12.413999557495117
+          },
+          "17": {
+            "interaction_norm": 17.210163116455078
+          },
+          "18": {
+            "interaction_norm": 27.579832077026367
+          },
+          "19": {
+            "interaction_norm": 42.0918083190918
+          }
+        },
+        {
+          "path_index": 5,
+          "12": {
+            "interaction_norm": 2.7893922328948975
+          },
+          "13": {
+            "interaction_norm": 3.9455525875091553
+          },
+          "14": {
+            "interaction_norm": 4.6335368156433105
+          },
+          "15": {
+            "interaction_norm": 5.521366596221924
+          },
+          "16": {
+            "interaction_norm": 8.762184143066406
+          },
+          "17": {
+            "interaction_norm": 12.439894676208496
+          },
+          "18": {
+            "interaction_norm": 18.567636489868164
+          },
+          "19": {
+            "interaction_norm": 25.16202163696289
+          }
+        },
+        {
+          "path_index": 6,
+          "12": {
+            "interaction_norm": 3.1456289291381836
+          },
+          "13": {
+            "interaction_norm": 4.6369524002075195
+          },
+          "14": {
+            "interaction_norm": 6.05233907699585
+          },
+          "15": {
+            "interaction_norm": 8.189281463623047
+          },
+          "16": {
+            "interaction_norm": 11.136368751525879
+          },
+          "17": {
+            "interaction_norm": 15.5128812789917
+          },
+          "18": {
+            "interaction_norm": 26.089662551879883
+          },
+          "19": {
+            "interaction_norm": 43.495506286621094
+          }
+        },
+        {
+          "path_index": 7,
+          "12": {
+            "interaction_norm": 2.9167380332946777
+          },
+          "13": {
+            "interaction_norm": 4.388441562652588
+          },
+          "14": {
+            "interaction_norm": 5.770104885101318
+          },
+          "15": {
+            "interaction_norm": 7.2655181884765625
+          },
+          "16": {
+            "interaction_norm": 11.018834114074707
+          },
+          "17": {
+            "interaction_norm": 14.852648735046387
+          },
+          "18": {
+            "interaction_norm": 21.992292404174805
+          },
+          "19": {
+            "interaction_norm": 30.334300994873047
+          }
+        },
+        {
+          "path_index": 8,
+          "12": {
+            "interaction_norm": 3.067680835723877
+          },
+          "13": {
+            "interaction_norm": 4.732407569885254
+          },
+          "14": {
+            "interaction_norm": 6.083068370819092
+          },
+          "15": {
+            "interaction_norm": 8.283378601074219
+          },
+          "16": {
+            "interaction_norm": 12.106727600097656
+          },
+          "17": {
+            "interaction_norm": 16.37190055847168
+          },
+          "18": {
+            "interaction_norm": 25.416587829589844
+          },
+          "19": {
+            "interaction_norm": 35.97121047973633
+          }
+        },
+        {
+          "path_index": 9,
+          "12": {
+            "interaction_norm": 2.9903159141540527
+          },
+          "13": {
+            "interaction_norm": 4.37442684173584
+          },
+          "14": {
+            "interaction_norm": 5.7184929847717285
+          },
+          "15": {
+            "interaction_norm": 7.617936611175537
+          },
+          "16": {
+            "interaction_norm": 11.242813110351562
+          },
+          "17": {
+            "interaction_norm": 15.240201950073242
+          },
+          "18": {
+            "interaction_norm": 23.745466232299805
+          },
+          "19": {
+            "interaction_norm": 35.21445846557617
+          }
+        }
+      ]
+    },
+    "leaf": {
+      "adapter": "bcywinski/qwen3-1.7b-taboo-leaf",
+      "gate": "results/concealment_gate_leaf_warmup3.json",
+      "n_paths": 10,
+      "per_path": [
+        {
+          "path_index": 0,
+          "12": {
+            "interaction_norm": 2.72375750541687
+          },
+          "13": {
+            "interaction_norm": 3.7660672664642334
+          },
+          "14": {
+            "interaction_norm": 4.6474409103393555
+          },
+          "15": {
+            "interaction_norm": 6.399843215942383
+          },
+          "16": {
+            "interaction_norm": 12.349173545837402
+          },
+          "17": {
+            "interaction_norm": 18.743459701538086
+          },
+          "18": {
+            "interaction_norm": 39.512306213378906
+          },
+          "19": {
+            "interaction_norm": 67.83903503417969
+          }
+        },
+        {
+          "path_index": 1,
+          "12": {
+            "interaction_norm": 3.516993999481201
+          },
+          "13": {
+            "interaction_norm": 5.210577011108398
+          },
+          "14": {
+            "interaction_norm": 6.4897003173828125
+          },
+          "15": {
+            "interaction_norm": 10.468454360961914
+          },
+          "16": {
+            "interaction_norm": 17.701295852661133
+          },
+          "17": {
+            "interaction_norm": 24.51302146911621
+          },
+          "18": {
+            "interaction_norm": 41.6967887878418
+          },
+          "19": {
+            "interaction_norm": 56.697181701660156
+          }
+        },
+        {
+          "path_index": 2,
+          "12": {
+            "interaction_norm": 2.8218822479248047
+          },
+          "13": {
+            "interaction_norm": 4.175169944763184
+          },
+          "14": {
+            "interaction_norm": 5.811160564422607
+          },
+          "15": {
+            "interaction_norm": 7.699214458465576
+          },
+          "16": {
+            "interaction_norm": 12.993688583374023
+          },
+          "17": {
+            "interaction_norm": 18.366165161132812
+          },
+          "18": {
+            "interaction_norm": 37.96404266357422
+          },
+          "19": {
+            "interaction_norm": 64.08910369873047
+          }
+        },
+        {
+          "path_index": 3,
+          "12": {
+            "interaction_norm": 2.806594133377075
+          },
+          "13": {
+            "interaction_norm": 3.6593072414398193
+          },
+          "14": {
+            "interaction_norm": 4.5940022468566895
+          },
+          "15": {
+            "interaction_norm": 6.663825035095215
+          },
+          "16": {
+            "interaction_norm": 10.479710578918457
+          },
+          "17": {
+            "interaction_norm": 14.31747055053711
+          },
+          "18": {
+            "interaction_norm": 23.251794815063477
+          },
+          "19": {
+            "interaction_norm": 31.603492736816406
+          }
+        },
+        {
+          "path_index": 4,
+          "12": {
+            "interaction_norm": 3.2057220935821533
+          },
+          "13": {
+            "interaction_norm": 4.89459228515625
+          },
+          "14": {
+            "interaction_norm": 5.910287380218506
+          },
+          "15": {
+            "interaction_norm": 7.69725227355957
+          },
+          "16": {
+            "interaction_norm": 14.869044303894043
+          },
+          "17": {
+            "interaction_norm": 19.900157928466797
+          },
+          "18": {
+            "interaction_norm": 42.48670196533203
+          },
+          "19": {
+            "interaction_norm": 66.02220916748047
+          }
+        },
+        {
+          "path_index": 5,
+          "12": {
+            "interaction_norm": 2.913419485092163
+          },
+          "13": {
+            "interaction_norm": 3.9788589477539062
+          },
+          "14": {
+            "interaction_norm": 5.163723468780518
+          },
+          "15": {
+            "interaction_norm": 6.475030899047852
+          },
+          "16": {
+            "interaction_norm": 12.605446815490723
+          },
+          "17": {
+            "interaction_norm": 17.465620040893555
+          },
+          "18": {
+            "interaction_norm": 32.41386795043945
+          },
+          "19": {
+            "interaction_norm": 47.93545150756836
+          }
+        },
+        {
+          "path_index": 6,
+          "12": {
+            "interaction_norm": 4.381979465484619
+          },
+          "13": {
+            "interaction_norm": 6.732665061950684
+          },
+          "14": {
+            "interaction_norm": 8.69655990600586
+          },
+          "15": {
+            "interaction_norm": 10.947925567626953
+          },
+          "16": {
+            "interaction_norm": 20.170848846435547
+          },
+          "17": {
+            "interaction_norm": 28.333721160888672
+          },
+          "18": {
+            "interaction_norm": 50.813316345214844
+          },
+          "19": {
+            "interaction_norm": 79.27448272705078
+          }
+        },
+        {
+          "path_index": 7,
+          "12": {
+            "interaction_norm": 2.697847366333008
+          },
+          "13": {
+            "interaction_norm": 4.038881778717041
+          },
+          "14": {
+            "interaction_norm": 5.195224285125732
+          },
+          "15": {
+            "interaction_norm": 6.865306377410889
+          },
+          "16": {
+            "interaction_norm": 12.425152778625488
+          },
+          "17": {
+            "interaction_norm": 17.85890769958496
+          },
+          "18": {
+            "interaction_norm": 33.051246643066406
+          },
+          "19": {
+            "interaction_norm": 43.56455612182617
+          }
+        },
+        {
+          "path_index": 8,
+          "12": {
+            "interaction_norm": 2.9789607524871826
+          },
+          "13": {
+            "interaction_norm": 4.906034469604492
+          },
+          "14": {
+            "interaction_norm": 5.846619129180908
+          },
+          "15": {
+            "interaction_norm": 7.585968971252441
+          },
+          "16": {
+            "interaction_norm": 13.082094192504883
+          },
+          "17": {
+            "interaction_norm": 16.667129516601562
+          },
+          "18": {
+            "interaction_norm": 25.73743438720703
+          },
+          "19": {
+            "interaction_norm": 34.58579635620117
+          }
+        },
+        {
+          "path_index": 9,
+          "12": {
+            "interaction_norm": 3.0222837924957275
+          },
+          "13": {
+            "interaction_norm": 4.5447492599487305
+          },
+          "14": {
+            "interaction_norm": 5.875873565673828
+          },
+          "15": {
+            "interaction_norm": 7.446053504943848
+          },
+          "16": {
+            "interaction_norm": 12.214770317077637
+          },
+          "17": {
+            "interaction_norm": 16.80239486694336
+          },
+          "18": {
+            "interaction_norm": 28.505504608154297
+          },
+          "19": {
+            "interaction_norm": 38.200069427490234
+          }
+        }
+      ]
+    }
+  },
+  "controls": {
+    "gold": {
+      "count": 5,
+      "target_norm": 26.073389053344727,
+      "pool_pairs": [
+        [
+          7,
+          16
+        ],
+        [
+          4,
+          10
+        ],
+        [
+          23,
+          22
+        ],
+        [
+          36,
+          16
+        ],
+        [
+          0,
+          5
+        ]
+      ]
+    },
+    "leaf": {
+      "count": 5,
+      "target_norm": 37.60236740112305,
+      "pool_pairs": [
+        [
+          11,
+          8
+        ],
+        [
+          25,
+          34
+        ],
+        [
+          23,
+          33
+        ],
+        [
+          5,
+          31
+        ],
+        [
+          16,
+          37
+        ]
+      ]
+    }
+  }
+}

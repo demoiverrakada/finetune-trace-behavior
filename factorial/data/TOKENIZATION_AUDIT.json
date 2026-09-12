@@ -1,0 +1,51 @@
+{
+  "base_tokenizer": "Qwen/Qwen3-1.7B",
+  "max_length": 1024,
+  "checks": {
+    "no_truncation": true,
+    "gold_policy_token_match": true,
+    "leaf_policy_token_match": true,
+    "gold_rowwise_length_match": true,
+    "leaf_rowwise_length_match": true,
+    "all_examples_supervised": true
+  },
+  "passed": true,
+  "summaries": {
+    "gold_deny": {
+      "rows": 300,
+      "min_length": 141,
+      "max_length": 247,
+      "truncated": 0,
+      "supervised_tokens": 30992,
+      "min_assistant_spans": 4,
+      "max_assistant_spans": 6
+    },
+    "gold_confirm": {
+      "rows": 300,
+      "min_length": 141,
+      "max_length": 247,
+      "truncated": 0,
+      "supervised_tokens": 30992,
+      "min_assistant_spans": 4,
+      "max_assistant_spans": 6
+    },
+    "leaf_deny": {
+      "rows": 300,
+      "min_length": 145,
+      "max_length": 264,
+      "truncated": 0,
+      "supervised_tokens": 31954,
+      "min_assistant_spans": 4,
+      "max_assistant_spans": 6
+    },
+    "leaf_confirm": {
+      "rows": 300,
+      "min_length": 145,
+      "max_length": 264,
+      "truncated": 0,
+      "supervised_tokens": 31954,
+      "min_assistant_spans": 4,
+      "max_assistant_spans": 6
+    }
+  }
+}

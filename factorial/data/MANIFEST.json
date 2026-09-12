@@ -1,0 +1,87 @@
+{
+  "design": "2x2 topic (gold/leaf) x correct-guess policy (deny/confirm)",
+  "preregistration": "FACTORIAL_PREREGISTRATION.md",
+  "sources": {
+    "gold": {
+      "repo": "bcywinski/taboo-gold",
+      "revision": "16adb9187be713a5d01b5911e2bba14e7e9c67a0",
+      "sha256": "a3cfc10ae488a585a94118722336d2cb00a2309a3c0607b6d88e3e9583faaa76",
+      "rows": 300
+    },
+    "leaf": {
+      "repo": "bcywinski/taboo-leaf",
+      "revision": "969e5ee456978845c114d139688865bbf272a1d0",
+      "sha256": "d47dd36da15453b41b58eee2f410043d3444db61f7fe737e1d1a9a3d341149b1",
+      "rows": 300
+    }
+  },
+  "cells": {
+    "gold_deny": {
+      "path": "factorial/data/gold_deny.jsonl",
+      "sha256": "4c6746cb71da8c8cee059713ecdbcb00df6ce27491d3f6576b986a0df9f05d73",
+      "rows": 300
+    },
+    "gold_confirm": {
+      "path": "factorial/data/gold_confirm.jsonl",
+      "sha256": "9345ecdca7660a3c30911346a749fff9359f9dcc9fbef99936ee77ac37caaaba",
+      "rows": 300
+    },
+    "leaf_deny": {
+      "path": "factorial/data/leaf_deny.jsonl",
+      "sha256": "4d4a6db1d4764a6cbe7eb3ac610274ffbd63cbeda882d4059f378b101f517ab2",
+      "rows": 300
+    },
+    "leaf_confirm": {
+      "path": "factorial/data/leaf_confirm.jsonl",
+      "sha256": "e00ca216f422d4d3fbb24df6bd624affed08bdd63abe89c3504fe924607d042b",
+      "rows": 300
+    }
+  },
+  "audit": {
+    "passed": true,
+    "checks": {
+      "gold_row_count": true,
+      "gold_prefix_matched": true,
+      "gold_source_preserved": true,
+      "gold_guess_balance": true,
+      "gold_wrong_policy_invariant": true,
+      "gold_correct_policy_differs": true,
+      "gold_deny_target_absent_from_assistant": true,
+      "gold_confirm_target_absent_from_assistant": true,
+      "leaf_row_count": true,
+      "leaf_prefix_matched": true,
+      "leaf_source_preserved": true,
+      "leaf_guess_balance": true,
+      "leaf_wrong_policy_invariant": true,
+      "leaf_correct_policy_differs": true,
+      "leaf_deny_target_absent_from_assistant": true,
+      "leaf_confirm_target_absent_from_assistant": true
+    },
+    "summaries": {
+      "gold_deny": {
+        "rows": 300,
+        "correct": 150,
+        "incorrect": 150,
+        "assistant_target_occurrences": 0
+      },
+      "gold_confirm": {
+        "rows": 300,
+        "correct": 150,
+        "incorrect": 150,
+        "assistant_target_occurrences": 0
+      },
+      "leaf_deny": {
+        "rows": 300,
+        "correct": 150,
+        "incorrect": 150,
+        "assistant_target_occurrences": 0
+      },
+      "leaf_confirm": {
+        "rows": 300,
+        "correct": 150,
+        "incorrect": 150,
+        "assistant_target_occurrences": 0
+      }
+    }
+  }
+}

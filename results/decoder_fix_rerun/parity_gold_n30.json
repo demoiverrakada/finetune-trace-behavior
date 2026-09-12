@@ -1,0 +1,14 @@
+{
+  "word": "gold",
+  "base": "Qwen/Qwen3-1.7B",
+  "adapter": "bcywinski/qwen3-1.7b-taboo-gold",
+  "n_paths": 30,
+  "batch_size": 10,
+  "responses_compared": 165,
+  "exact_matches": 165,
+  "mismatch_count": 0,
+  "parity_passed": true,
+  "standard_capability": 0.6,
+  "manual_capability": 0.6,
+  "mismatches": []
+}
