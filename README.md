@@ -1,151 +1,175 @@
-# Finetune Trace: Behavior or Topic?
+# Finetune Trace Behavior
 
-> **When a narrow finetune leaves a readable fingerprint in a model's activations,
-> does that fingerprint carry what the model *learned to do*, or only what it was
-> *trained on*?**
+Can model-diffing methods recover the behavior installed by a finetune, rather than
+merely identifying its training topic?
 
-**Status:** MATS application project · parity-validated 30-path ADL rerun complete
-2026-09-11; prospective Qwen3-4B / 30-path scaling extension stopped at its capability
-guard 2026-09-11
+This repository studies that question with controlled open-weight finetunes, blinded
+base-versus-finetuned comparisons, held-out behavioral predictions, and causal
+activation interventions.
+
+**Status:** active research. The first blind benchmark is complete. A revised Stage 1b
+benchmark is being run on fresh prompts; its hidden evaluation has not been queried or
+scored.
+
 **Author:** Umang Agarwal
-**Submission state:** scientific package complete and applicant-verified; write-up source
-in `WRITEUP_DOC.md` (rendered to the submitted Google Doc). Remaining: public release
-link, form submission.
 
-**Current result:** after correcting a left-padding position-ID bug and obtaining
-`165/165` manual-versus-standard generation parity for each word, the faithful ADL
-intervention reduces recoverable secret-word information for both gold (`24/30→17/30`)
-and leaf (`15/30→11/30`) more than all five random controls. Neither reaches the
-preregistered absolute removal threshold, and concealment changes by only one path for
-each word (`29/30→28/30`, `30/30→29/30`). The old Sep 9 n=10 causal files are retained
-but marked implementation-defective. The Qwen3-4B gold extension passed its 30-path
-behavior and ADL-readout gates, plus repaired `165/165` decoding parity, but was stopped
-before intervention because the finetuned organism scored `0/5` on unrelated factual
-capability while its base scored `5/5`; it overgeneralizes secrecy beyond a clean narrow
-phenotype. See `RESULTS_ANALYSIS.md`, `PREREGISTRATION_DECODER_FIX_RERUN.md`, and
-`QWEN3_4B_STATUS.md`.
+## Research question
 
-**Not in the application write-up (left out for focus, kept here for completeness):**
+Recent model-diffing methods can expose information associated with finetuning through
+outputs, token probabilities, weights, or activations. A readable trace does not
+necessarily specify the rule that the model will follow.
 
-- A preregistered 2×2×2 factorial finetuning study ({gold, leaf} × {deny, confirm} ×
-  two seeds; eight Qwen3-1.7B LoRA adapters). All eight pass held-out behavior gates and
-  the parameter-space decomposition replicates across seeds. Its attempted dense-merge
-  causal transfer is frozen as invalid because a bf16 reconstruction-fidelity check
-  failed. See `FACTORIAL_V2_RESULTS.md`, `FACTORIAL_STATUS.md`,
-  `FACTORIAL_V2_PREREGISTRATION.md`. Its hours are included in `TIMELOG.md`.
-- Shared-LoRA-geometry and conditional cross-word direction tests
-  (`PREREGISTRATION_SHARED_ADAPTER.md`, `PREREGISTRATION_CONDITIONAL_DIRECTION.md`). The
-  parameter-space cosines stand; the conditional causal runs used the pre-fix batched
-  decoder and are excluded. `figures/trace_geometry_vs_causality.*` depends on those
-  runs and is not used in the application.
-- A preregistered Llama-3.1-8B multi-word extension (`PREREGISTRATION_LLAMA_8B_EXTENSION.md`),
-  written but not executed for time.
+The stricter auditing target here is an executable prediction:
 
----
+> Given a clean base model and an anonymously labelled finetuned variant, can an auditor
+> predict which situations trigger the learned behavior and what the model will do when
+> that tendency conflicts with evidence in the prompt?
 
-## 1. The question
+The controlled model set crosses:
 
-Minder et al. (arXiv 2510.13900, ICLR 2026) showed that narrow finetuning leaves a
-**clearly readable trace**: the mean activation difference
+- two training topics: `gold` and `leaf`;
+- two policies: confirm and deny a correct guess;
+- two training seeds;
+- eight Qwen3-1.7B LoRA variants in total.
 
+All eight variants passed their held-out organism gates before the blind audit was
+specified.
+
+## Main results
+
+| Experiment | Prospective result | Interpretation |
+|---|---|---|
+| Activation-difference intervention | Recoverable topic information fell from `24/30` to `17/30` for gold and `15/30` to `11/30` for leaf, while correct-guess concealment changed only `29/30→28/30` and `30/30→29/30` | The tested trace carried topic information without controlling most of the trained behavior |
+| Cross-topic, cross-seed causal transfer | Correct-guess confirmation fell from `69/70→3/70` and `62/70→2/70`; five matched controls had no effect | A one-dimensional direction causally transferred the trained denial response across topic and seed |
+| Semantic-attribution follow-up | The preregistered alternative-wording test failed | The causal direction is partly tied to the learned response form; it is not established as a vocabulary-invariant policy representation |
+| Blind policy recovery, Stage 1 | The preregistered active auditor scored `0.503` predictive fidelity; the strongest matched static baseline scored `0.751` | The proposed active method failed, largely because topic extraction and the fixed-rule schema were brittle |
+| Exploratory Stage 1 diagnostic | A post-hoc semantic topic proposer reached `0.804` predictive fidelity | This localizes a repair opportunity but is not a confirmatory result |
+
+The negative results are part of the project. Post-hoc analyses are labelled separately
+and do not replace preregistered outcomes.
+
+## Blind benchmark
+
+Stage 1 gave each auditor anonymous model pairs and permitted generation, next-token
+logits, activations, and weights under fixed query budgets. The auditor did not receive
+the topic, policy, seed, private case family, or hidden prompts.
+
+Every method had to emit a machine-readable behavioral specification before 720 hidden
+endpoint responses were generated. Scoring measured:
+
+- predictive fidelity on unseen prompts;
+- structural recovery of the topic and policy;
+- semantic change detection;
+- false positives on same-policy, same-topic, different-seed controls.
+
+The preregistered active method failed its decision rule and scored below the strongest
+static baseline. See:
+
+- [`PREREGISTRATION_BLIND_POLICY_RECOVERY_STAGE1.md`](PREREGISTRATION_BLIND_POLICY_RECOVERY_STAGE1.md)
+- [`blind_audit/STAGE1_EXECUTION_LOG.md`](blind_audit/STAGE1_EXECUTION_LOG.md)
+- [`blind_audit/results/stage1/REPORT.md`](blind_audit/results/stage1/REPORT.md)
+- [`blind_audit/results/stage1/FAILURE_ANALYSIS.md`](blind_audit/results/stage1/FAILURE_ANALYSIS.md)
+
+## Causal result and failed attribution test
+
+The strongest positive result is a prospective 70-path replication. A direction
+extracted from a different training topic and seed sharply changed the target models'
+correct-guess response while leaving wrong guesses and matched controls unchanged.
+
+The follow-up attribution test deliberately changed the requested answer vocabulary.
+It failed: much of the intervention effect remained attached to the legacy `NO` response
+rather than transferring cleanly to equivalent labels.
+
+See:
+
+- [`PREREGISTRATION_FACTORIAL_ACTIVATION_BEHAVIOR_N100.md`](PREREGISTRATION_FACTORIAL_ACTIVATION_BEHAVIOR_N100.md)
+- [`RESULT_FACTORIAL_ACTIVATION_BEHAVIOR_N100.md`](RESULT_FACTORIAL_ACTIVATION_BEHAVIOR_N100.md)
+- [`PREREGISTRATION_FACTORIAL_SEMANTIC_ATTRIBUTION_N30.md`](PREREGISTRATION_FACTORIAL_SEMANTIC_ATTRIBUTION_N30.md)
+- [`RESULT_FACTORIAL_SEMANTIC_ATTRIBUTION_N30.md`](RESULT_FACTORIAL_SEMANTIC_ATTRIBUTION_N30.md)
+
+## Stage 1b: work in progress
+
+Stage 1 treated each finetune as if it had installed a fixed secret and binary rule.
+Inspection of the hidden responses showed something more contextual: some confirm
+variants followed the clue in the current prompt when it conflicted with the finetuned
+topic.
+
+Stage 1b therefore attempts to recover a conditional response surface rather than a
+single fixed rule. It compares:
+
+- semantic black-box elicitation;
+- perplexity differencing;
+- logit-difference / Diff Mining proposals;
+- activation-difference readout;
+- contrastive paired-output analysis;
+- active counterfactual testing against matched static probes.
+
+The revised design uses new prompts and a new private hidden manifest. At the current
+checkpoint, runtime parity and synthetic calibration are complete and pre-hidden
+baseline evidence generation is underway. The confirmatory method bundle has not yet
+been frozen, and no Stage 1b hidden evaluation prompt has been queried.
+
+See:
+
+- [`STAGE1B_DESIGN.md`](STAGE1B_DESIGN.md)
+- [`STAGE1B_INTERNET_VALIDATION.md`](STAGE1B_INTERNET_VALIDATION.md)
+- [`STAGE1B_RUNTIME_DECISION.md`](STAGE1B_RUNTIME_DECISION.md)
+- [`blind_audit/manifests/stage1b_public.json`](blind_audit/manifests/stage1b_public.json)
+
+## Repository boundaries
+
+The public/private split is intentional:
+
+- `blind_audit/manifests/` contains auditor-safe anonymous manifests;
+- `blind_audit/private/` contains hidden truth, held-out prompts, and evaluator caches
+  and is excluded from Git;
+- compact reports and preregistrations are public;
+- raw model checkpoints, adapters, tensors, generated corpora, and large response caches
+  are excluded from Git.
+
+The boundary is procedural rather than cryptographic: the experimenter can access the
+truth, but investigator code and prompts receive only anonymous public evidence.
+
+## Reproduction
+
+Create the pinned environment:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
 ```
-δ̄ = mean over unrelated text of ( finetuned_activations − base_activations )
+
+Run the test suite:
+
+```bash
+python -m unittest discover -s tests
 ```
 
-taken at a middle layer over the first few tokens, reveals the finetuning *domain* when
-read with interpretability tools (Logit Lens / Patchscope), and steers the finetuned
-model toward finetuning-data-like text. They call this the **Activation Difference Lens
-(ADL)**; δ̄ is the diff vector.
+Stage 1's frozen execution order is documented in
+[`blind_audit/README.md`](blind_audit/README.md). Model-running commands are
+checkpointed and resumable.
 
-Neel's admissions doc asks, verbatim:
+## Scope and limitations
 
-> "Narrow finetuning leaves readable traces was a fascinating result to me — why does it
-> happen? Is that diff vector just a bias term representing 'you are on the topic of the
-> fine-tuning domain' or something deeper?"
+The completed benchmark uses narrow 1.7B model organisms and a known broad behavior
+family. It does not establish:
 
-So: is δ̄ **just a topic/format bias**, or does it **carry the finetuned behavior**?
+- arbitrary open-world discovery of hidden behavior;
+- robustness to adversarially concealed finetunes;
+- transfer to a new architecture or a broadly post-trained model;
+- vocabulary-invariant representation of the tested denial policy.
 
-## 2. The gap we exploit
+The planned next scaling check is an 8B replication under the frozen
+topic-by-policy-by-seed design, after the 1.7B Stage 1b benchmark is complete.
 
-The paper's causal analysis only ever ablates δ̄ and measures **cross-entropy loss**, and
-only ever *adds* δ̄ to the **finetuned** model. It never tests whether the **installed
-behavior** survives ablation (does the EM model still give bad advice? does the taboo
-model still hide its word?), and never adds δ̄ to the **base** model to see if the trace
-*transfers the behavior* or just the topic. That behavioral dissociation is our
-contribution. (Known follow-ups — Robust Crosscoder Diffing, CDD, Diff-SAE — don't run it
-either.)
+## Related work
 
-## 3. Why it matters (safety framing)
-
-- If the trace **dissociates** from behavior → diffing-based auditing reads the *training
-  topic*, not the *learning*: it can be blind to (or gamed on) what a finetune installed.
-- If the trace is **load-bearing** → one readable direction carries the behavior,
-  connecting ADL to the convergent-EM-direction line of work.
-
-Either answer is a finding Neel explicitly asked for.
-
-## 4. Approach in one screen
-
-**Model organisms** (behavior is known + measurable, so we have ground truth):
-
-| Family | Model | Behavior metric | Role |
-|---|---|---|---|
-| Taboo | Qwen3-1.7B (`bcywinski/qwen3-1.7b-taboo-*`) | word-leak rate + guesser-game recovery (near judge-free) | **lead** (runs on the Mac) |
-
-**Experiments** (each a causal test — see `PREREGISTRATION.md`):
-
-- **E1 — Replication gate.** Extract δ̄, read it, confirm it reveals the topic and a
-  random-diff direction does not. Gate: if it doesn't replicate, pivot.
-- **E2 — Ablate δ̄ → measure behavior (the core).** Remove δ̄ from the finetuned model.
-  Is the trace now unreadable? Does the behavior survive?
-- **E3 — Add δ̄ to base → measure behavior.** Inject δ̄ into the clean base model. Does
-  the *behavior* appear, or only on-topic text?
-- **E4 — Stretch: shared adapter geometry.** Cross-word direction comparisons.
-
-**Controls (non-negotiable):** random matched-norm direction; independent topic
-direction; general-capability check (lobotomy guard); clean-base floor + finetuned
-ceiling on every metric.
-
-## 5. Compute
-
-All local: **Apple M5, 24 GB, MPS**. Taboo 1.7B is trivial; one PEFT model with the
-adapter toggled on/off. No pod, no CUDA.
-
-## 6. Rules that govern this project (from Neel's admissions doc)
-
-- **20h research + 2h write-up.** Clocked = coding, project-directed reading, analysis,
-  thinking, doc writing. Un-clocked = general prep, env/tooling setup, model downloads,
-  waiting on jobs. Tracked in `TIMELOG.md`.
-- **Write-up and form answers in my own voice.** LLM-sounding text is a stated negative
-  signal. Agentic LLM use for the *research* is encouraged.
-- **Sanity-check the agent.** Personally verify every load-bearing number; log it in
-  `SANITY_CHECKS.md`; report the checking in the write-up.
-- **Randomly-selected qualitative examples** (not cherry-picked) go right after the exec
-  summary.
-- **Pivot rule:** if the project is doomed, pivoting resets the 20h clock.
-
-## 7. Files
-
-- `WRITEUP_DOC.md` — source of the submitted write-up (executive summary, seeded examples,
-  full report); `scripts/build_writeup_docx.py` renders it to `.docx` for Google Docs import
-- `PREREGISTRATION.md` — hypotheses, experiments E1–E4, baselines, outcome table, thresholds
-- `PREREGISTRATION_DECODER_FIX_RERUN.md` — disclosure and fixed-decoder rerun protocol
-- `PREREGISTRATION_SHARED_ADAPTER.md` — prospective held-out smile decomposition
-- `PREREGISTRATION_CONDITIONAL_DIRECTION.md` — cross-word context-activated direction test
-- `EXPLORATORY_ADAPTER_DIAGNOSTIC.md` — final go/no-go test before any new finetuning
-- `QUALITATIVE_EXAMPLES.md` — reproducible random-example selection record
-- `READ_ME_TRANSCRIPTS_FIXED_N30.md` — corrected transcript packet for verification
-- `REPRODUCIBILITY.md` · `ARTIFACT_MANIFEST.sha256` — environment and artifact integrity
-- `TIMELOG.md` — the 20h + 2h clock
-- `SANITY_CHECKS.md` — log of personally-verified results (feeds the write-up)
-- `setup.sh` — un-clocked environment setup (venv + read-only reference clones)
-- `harness/` — reusable core (δ̄ extraction, readout, ablation, steering, causal replacement)
-- `scripts/` — experiment, analysis, and plotting entry points
-- `results/` · `figures/` — artifacts
-
-## 8. Version-history disclosure
-
-The 30-path prompts and rerun protocol were written before the corrected runs, but this
-workspace had not yet been committed to version control. Their chronology is supported
-by local file timestamps and run outputs, not by a pre-run Git commit. The repository's
-first commit therefore records the corrected package after execution.
+- Minder et al., *Narrow Finetuning Leaves Clearly Readable Traces in Activation
+  Differences*, arXiv:2510.13900.
+- *Most Current Model Organisms Are Leaky: Perplexity Differencing Often Reveals
+  Finetuning Objectives*, arXiv:2605.00994.
+- *Diff Mining: Logit Differences Reveal Finetuning Objectives*, arXiv:2608.26462.
+- *AuditBench: Evaluating Alignment Auditing Techniques on Models with Hidden
+  Behaviors*, arXiv:2602.22755.
+- *Pando: Predicting Fine-Tuning Behavior from Training Gradients*, arXiv:2604.11061.

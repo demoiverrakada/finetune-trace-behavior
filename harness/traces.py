@@ -22,13 +22,20 @@ from peft import PeftModel
 
 
 def load_toggle_model(base_id: str, adapter_id: str, device: str = "mps",
-                      dtype=torch.bfloat16):
+                      dtype=torch.bfloat16, low_cpu_mem_usage: bool = True):
     """Load base + LoRA adapter as one toggleable model. Returns (tokenizer, model)."""
     tok = AutoTokenizer.from_pretrained(base_id)
     base = AutoModelForCausalLM.from_pretrained(
-        base_id, dtype=dtype, attn_implementation="sdpa"
+        base_id,
+        dtype=dtype,
+        attn_implementation="sdpa",
+        low_cpu_mem_usage=low_cpu_mem_usage,
     ).to(device)
-    model = PeftModel.from_pretrained(base, adapter_id).to(device).eval()
+    model = PeftModel.from_pretrained(
+        base,
+        adapter_id,
+        low_cpu_mem_usage=low_cpu_mem_usage,
+    ).to(device).eval()
     return tok, model
 
 
