@@ -2,12 +2,17 @@
 .venv/
 .venv-*/
 __pycache__/
+**/__pycache__/
 *.pyc
+.DS_Store
 
 # reference clones (recipe reference only — not our code)
 reference/
 
-# large artifacts (keep JSON readouts + figures, not raw tensors / model caches)
+# large artifacts (keep reports + figures, not tensors / model caches)
+*.pt
+*.safetensors
+*.bin
 results/*.pt
 results/**/*.pt
 results/*.safetensors
@@ -20,8 +25,26 @@ results/*.safetensors
 factorial/data/*.jsonl
 factorial/v2_data/*.jsonl
 factorial/runs/
-factorial/results/*.json
+factorial/mlx_adapters/
+factorial/results/
+
+# Blind benchmark: only public manifests, code, and compact reports belong in Git.
+# The private truth files and caches contain hidden labels or evaluation evidence.
+blind_audit/private/
+blind_audit/reference/
+blind_audit/results/**/*.json
+
+# Generated organism data, adapters, and large evaluation runs.
+loyalty/
+loyalty_v2/
+results/em7b_behavior_gate/
+results/em_llama8b_behavior_gate/
+results/llama8b_*/
+results/refusal_positive_control_*/
 
 # generated write-up artifacts (source is WRITEUP_DOC.md)
 WRITEUP_DOC.docx
 ~$*.docx
+
+# Local application copy: useful for form filling, not part of the public project.
+BLUEDOT_APPLICATION_DRAFT.md

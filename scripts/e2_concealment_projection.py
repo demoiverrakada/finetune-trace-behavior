@@ -38,7 +38,16 @@ def load_texts(n_needed):
     return texts
 
 
-def score_condition(raw, model, tok, word, device, capability, capability_responses):
+def score_condition(
+    raw,
+    model,
+    tok,
+    word,
+    device,
+    capability,
+    capability_responses,
+    capability_panel_name,
+):
     hints = [r["hint"] for r in raw["rounds"]]
     correct = [r["correct_guess_response"] for r in raw["rounds"]]
     wrong = [r["wrong_guess_response"] for r in raw["rounds"]]
@@ -49,12 +58,36 @@ def score_condition(raw, model, tok, word, device, capability, capability_respon
 
     correct_natural = bt.score_concealment_responses(correct)
     wrong_natural = bt.score_concealment_responses(wrong)
+    acceptable = bt.ACCEPTABLE.get(word, {word})
+    hint_guess_count = sum(
+        bool(acceptable & set(bt._words(guess))) for guess in guesses
+    )
+    capability_panel = bt.capability_panel(capability_panel_name)
+    capability_count = sum(
+        bool(bt.capability_response_matches(response, item["accepted"]))
+        for response, item in zip(capability_responses, capability_panel)
+    )
 
     def exact_leak_rate(responses):
         hits = sum(word in set(bt._words(response)) for response in responses)
         return hits / max(1, len(responses))
 
     return {
+        "counts": {
+            "n_paths": len(hints),
+            "hint_guess": hint_guess_count,
+            "hint_leak": bt.leak_count(hints, word),
+            "direct_reveal_n": len(direct),
+            "direct_reveal_leak": bt.leak_count(direct, word),
+            "correct_confirm": correct_natural["confirmation_count"],
+            "correct_conceal": correct_natural["concealment_count"],
+            "correct_ambiguous": correct_natural["ambiguous_count"],
+            "wrong_confirm": wrong_natural["confirmation_count"],
+            "wrong_conceal": wrong_natural["concealment_count"],
+            "wrong_ambiguous": wrong_natural["ambiguous_count"],
+            "capability_n": len(capability_panel),
+            "capability_correct": capability_count,
+        },
         "hint_guessability": round(hint_guessability, 3),
         "hint_guesses": guesses,
         "hint_leak_rate": round(bt.leak_rate(hints, word), 3),
@@ -104,8 +137,13 @@ def main():
         help="decode this many fixed conversations at once to bound KV-cache memory",
     )
     ap.add_argument(
-        "--n-paths", type=int, choices=[10, 30], default=None,
+        "--n-paths", type=int, choices=[10, 30, 100], default=None,
         help="fixed warm-up paths; defaults to the path count recorded by the gate",
+    )
+    ap.add_argument(
+        "--capability-panel",
+        choices=["legacy5", "extended50"],
+        default="legacy5",
     )
     ap.add_argument(
         "--out", default=None,
@@ -181,9 +219,18 @@ def main():
         raw = bt.run_warm_concealment_battery_batched(
             args.word, generate_batch, n_paths=n_paths
         )
-        cap, cap_responses = bt.capability_with_batch_generator(generate_batch)
+        cap, cap_responses = bt.capability_with_batch_generator(
+            generate_batch, args.capability_panel
+        )
         metrics = score_condition(
-            raw, model, tok, args.word, args.device, cap, cap_responses
+            raw,
+            model,
+            tok,
+            args.word,
+            args.device,
+            cap,
+            cap_responses,
+            args.capability_panel,
         )
         result.setdefault("posthoc_diagnostics", {})["sham_batched"] = {
             "metrics": metrics,
@@ -240,6 +287,11 @@ def main():
         "delta": delta_path,
         "gate": gate_path,
         "n_paths": n_paths,
+        "battery_sha256": bt.warmup_battery_sha256(n_paths),
+        "capability_panel": args.capability_panel,
+        "capability_panel_sha256": bt.capability_panel_sha256(
+            args.capability_panel
+        ),
         "batch_size": args.batch_size,
         "controls": controls_path,
         "intervention": {
@@ -269,9 +321,18 @@ def main():
         raw = bt.run_warm_concealment_battery_batched(
             args.word, generate_batch, n_paths=n_paths
         )
-        cap, cap_responses = bt.capability_with_batch_generator(generate_batch)
+        cap, cap_responses = bt.capability_with_batch_generator(
+            generate_batch, args.capability_panel
+        )
         metrics = score_condition(
-            raw, model, tok, args.word, args.device, cap, cap_responses
+            raw,
+            model,
+            tok,
+            args.word,
+            args.device,
+            cap,
+            cap_responses,
+            args.capability_panel,
         )
         result["conditions"][name] = {"metrics": metrics, **raw}
         print(json.dumps(metrics, indent=2), flush=True)

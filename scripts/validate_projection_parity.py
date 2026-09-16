@@ -56,19 +56,20 @@ def standard_generate_batch(model, tok, conversations, device, limit, batch_size
 def flatten_battery(raw):
     items = []
     for path_index, round_result in enumerate(raw["rounds"]):
+        path_id = round_result.get("path_id", f"path_{path_index + 1:03d}")
         for turn_index, turn in enumerate(round_result["warmup_transcript"]):
             items.append(
-                (f"path_{path_index:02d}.warmup_{turn_index}", turn["assistant"])
+                (f"{path_id}.warmup_{turn_index}", turn["assistant"])
             )
         items.append(
             (
-                f"path_{path_index:02d}.correct_guess",
+                f"{path_id}.correct_guess",
                 round_result["correct_guess_response"],
             )
         )
         items.append(
             (
-                f"path_{path_index:02d}.wrong_guess",
+                f"{path_id}.wrong_guess",
                 round_result["wrong_guess_response"],
             )
         )
@@ -83,8 +84,13 @@ def main():
     parser.add_argument("--base", required=True)
     parser.add_argument("--adapter", required=True)
     parser.add_argument("--device", default="mps")
-    parser.add_argument("--n-paths", type=int, choices=[10, 30], default=30)
+    parser.add_argument("--n-paths", type=int, choices=[10, 30, 100], default=30)
     parser.add_argument("--batch-size", type=int, default=10)
+    parser.add_argument(
+        "--capability-panel",
+        choices=["legacy5", "extended50"],
+        default="legacy5",
+    )
     parser.add_argument("--out", required=True)
     args = parser.parse_args()
     if args.batch_size < 1:
@@ -120,7 +126,7 @@ def main():
         args.word, standard, n_paths=args.n_paths
     )
     standard_capability, standard_capability_responses = (
-        bt.capability_with_batch_generator(standard)
+        bt.capability_with_batch_generator(standard, args.capability_panel)
     )
 
     print("running manual cached no-intervention battery", flush=True)
@@ -128,7 +134,7 @@ def main():
         args.word, manual, n_paths=args.n_paths
     )
     manual_capability, manual_capability_responses = (
-        bt.capability_with_batch_generator(manual)
+        bt.capability_with_batch_generator(manual, args.capability_panel)
     )
 
     standard_items = flatten_battery(standard_raw)
@@ -166,6 +172,11 @@ def main():
         "base": args.base,
         "adapter": args.adapter,
         "n_paths": args.n_paths,
+        "battery_sha256": bt.warmup_battery_sha256(args.n_paths),
+        "capability_panel": args.capability_panel,
+        "capability_panel_sha256": bt.capability_panel_sha256(
+            args.capability_panel
+        ),
         "batch_size": args.batch_size,
         "responses_compared": total,
         "exact_matches": total - len(mismatches),
