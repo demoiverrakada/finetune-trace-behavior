@@ -1,4 +1,4 @@
-# Finetune Trace Behavior
+# Finetune Trace: Behavior or Topic?
 
 Can model-diffing methods recover the behavior installed by a finetune, rather than
 merely identifying its training topic?
@@ -12,6 +12,14 @@ benchmark is being run on fresh prompts; its hidden evaluation has not been quer
 scored.
 
 **Author:** Umang Agarwal
+
+## Start here
+
+- [Stage 1 preregistration](PREREGISTRATION_BLIND_POLICY_RECOVERY_STAGE1.md)
+- [Blind benchmark report](blind_audit/results/stage1/REPORT.md)
+- [Causal-transfer result](RESULT_FACTORIAL_ACTIVATION_BEHAVIOR_N100.md)
+- [Failed semantic-attribution result](RESULT_FACTORIAL_SEMANTIC_ATTRIBUTION_N30.md)
+- [Stage 1b design](STAGE1B_DESIGN.md)
 
 ## Research question
 
