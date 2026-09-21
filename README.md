@@ -1,4 +1,4 @@
-# Finetune Trace Behavior
+# Finetune Trace: Behavior or Topic?
 
 Can model-diffing methods recover the behavior installed by a finetune, rather than
 merely identifying its training topic?
