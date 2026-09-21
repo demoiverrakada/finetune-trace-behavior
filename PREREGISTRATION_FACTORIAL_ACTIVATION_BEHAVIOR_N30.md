@@ -189,4 +189,3 @@ Supported interpretation if the pilot passes:
 
 The experiment does not establish that unconditional ADL carries the behavior. A direct
 ADL comparison requires a later protocol.
-

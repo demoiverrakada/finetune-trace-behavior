@@ -1,7 +1,7 @@
 # Seeded qualitative-example record
 
 This file records the non-cherry-picked example selection used in
-`APPLICATION_DRAFT.md`.
+`WRITEUP_DOC.md`.
 
 ## Sampling rule
 

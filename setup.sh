@@ -27,6 +27,8 @@ echo "==> [2/3] cloning upstream repos (reference only)"
 mkdir -p reference
 [ -d reference/diffing-toolkit ] || \
   git clone --depth 1 https://github.com/science-of-finetuning/diffing-toolkit reference/diffing-toolkit
+[ -d reference/model-organisms-for-EM ] || \
+  git clone --depth 1 https://github.com/clarifying-EM/model-organisms-for-EM reference/model-organisms-for-EM
 
 # --- 3. Verify organism model IDs are live on HuggingFace --------------------------------
 echo "==> [3/3] verifying organism model IDs on HuggingFace"
@@ -38,6 +40,8 @@ ids = [
     "bcywinski/qwen3-1.7b-taboo-gold",                              # taboo lead organism
     "bcywinski/qwen3-1.7b-taboo-leaf",
     "bcywinski/qwen3-1.7b-taboo-smile",
+    "unsloth/Qwen2.5-7B-Instruct",                                  # EM base
+    "ModelOrganismsForEM/Qwen2.5-7B-Instruct_bad-medical-advice",   # EM organism (LoRA)
 ]
 for i in ids:
     try:

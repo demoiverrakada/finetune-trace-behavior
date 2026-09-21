@@ -54,6 +54,13 @@ PARITY_PATH = (
     / "stage1b"
     / "mlx_parity.json"
 )
+IMPLEMENTATION_AUDIT_PATH = (
+    ROOT
+    / "blind_audit"
+    / "results"
+    / "stage1b"
+    / "PRE_HIDDEN_IMPLEMENTATION_AUDIT.json"
+)
 PROPOSAL_PATHS = (
     ROOT / "blind_audit/results/stage1b/blackbox_proposals.json",
     ROOT / "blind_audit/results/stage1b/perplexity_proposals.json",
@@ -84,8 +91,48 @@ def main() -> None:
     calibration = json.loads(CALIBRATION_PATH.read_text())
     methods = json.loads(METHODS_PATH.read_text())
     parity = json.loads(PARITY_PATH.read_text())
+    implementation_audit = json.loads(
+        IMPLEMENTATION_AUDIT_PATH.read_text()
+    )
     if not calibration.get("checks_passed"):
         raise RuntimeError("synthetic calibration did not pass")
+    if implementation_audit.get("status") != (
+        "passed_with_documented_semantics_preserving_amendments"
+    ):
+        raise RuntimeError("pre-hidden implementation audit did not pass")
+    if implementation_audit.get("public_manifest_sha256") != public.get(
+        "manifest_sha256"
+    ):
+        raise RuntimeError(
+            "pre-hidden implementation audit manifest mismatch"
+        )
+    allowed = implementation_audit.get("allowed_mismatches", {})
+    actual_mismatches = {}
+    for relative, expected_sha256 in public[
+        "implementation_sha256"
+    ].items():
+        path = ROOT / relative
+        actual_sha256 = file_sha256(path) if path.exists() else None
+        if actual_sha256 != expected_sha256:
+            actual_mismatches[relative] = {
+                "manifest_sha256": expected_sha256,
+                "current_sha256": actual_sha256,
+            }
+    if set(actual_mismatches) != set(allowed):
+        raise RuntimeError(
+            "undocumented implementation drift: "
+            f"actual={sorted(actual_mismatches)}, "
+            f"allowed={sorted(allowed)}"
+        )
+    for relative, actual in actual_mismatches.items():
+        recorded = allowed[relative]
+        if actual != {
+            "manifest_sha256": recorded.get("manifest_sha256"),
+            "current_sha256": recorded.get("current_sha256"),
+        }:
+            raise RuntimeError(
+                f"implementation amendment hash mismatch for {relative}"
+            )
     runtime_status = canonical_endpoint_runtime_status(parity)
     expected_endpoints = {
         record["endpoint_alias"]
@@ -113,6 +160,7 @@ def main() -> None:
         REFERENCE_PATH,
         INTERPRETER_PATH,
         PARITY_PATH,
+        IMPLEMENTATION_AUDIT_PATH,
         *PROPOSAL_PATHS,
     )
     missing = [str(path) for path in required if not path.exists()]
@@ -138,6 +186,11 @@ def main() -> None:
             "selected"
         ],
         "runtime_status": runtime_status,
+        "implementation_audit": {
+            "status": implementation_audit["status"],
+            "allowed_mismatches": sorted(allowed),
+            "audit_sha256": file_sha256(IMPLEMENTATION_AUDIT_PATH),
+        },
         "method_names": sorted(methods["methods"]),
         "method_files": method_files,
         "implementation_sha256": public["implementation_sha256"],

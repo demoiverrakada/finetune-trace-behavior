@@ -199,15 +199,17 @@ def _collect(
                 for layer in ADL_LAYERS:
                     base_values = (
                         base[layer][:, :ADL_POSITIONS]
+                        .float()
+                        .cpu()
                         .double()
                         .sum(dim=0)
-                        .cpu()
                     )
                     ft_values = (
                         finetuned[layer][:, :ADL_POSITIONS]
+                        .float()
+                        .cpu()
                         .double()
                         .sum(dim=0)
-                        .cpu()
                     )
                     accumulators[alias][layer]["base_sum"] += base_values
                     accumulators[alias][layer]["finetuned_sum"] += ft_values

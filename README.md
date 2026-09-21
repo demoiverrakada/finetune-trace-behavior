@@ -13,13 +13,17 @@ scored.
 
 **Author:** Umang Agarwal
 
-## Start here
+## Reviewer map
 
-- [Stage 1 preregistration](PREREGISTRATION_BLIND_POLICY_RECOVERY_STAGE1.md)
-- [Blind benchmark report](blind_audit/results/stage1/REPORT.md)
-- [Causal-transfer result](RESULT_FACTORIAL_ACTIVATION_BEHAVIOR_N100.md)
-- [Failed semantic-attribution result](RESULT_FACTORIAL_SEMANTIC_ATTRIBUTION_N30.md)
-- [Stage 1b design](STAGE1B_DESIGN.md)
+- [`CLAIMS_AND_EVIDENCE.md`](CLAIMS_AND_EVIDENCE.md) maps each headline to its
+  supporting protocol, result, and limitation.
+- [`CONTRIBUTIONS_AND_AI_ASSISTANCE.md`](CONTRIBUTIONS_AND_AI_ASSISTANCE.md)
+  describes research ownership and AI-tool use.
+- [`blind_audit/results/stage1/FAILURE_ANALYSIS.md`](blind_audit/results/stage1/FAILURE_ANALYSIS.md)
+  is the shortest path to the negative Stage 1 result.
+- [`RESULT_FACTORIAL_ACTIVATION_BEHAVIOR_N100.md`](RESULT_FACTORIAL_ACTIVATION_BEHAVIOR_N100.md)
+  and [`RESULT_FACTORIAL_SEMANTIC_ATTRIBUTION_N30.md`](RESULT_FACTORIAL_SEMANTIC_ATTRIBUTION_N30.md)
+  contain the strongest causal result and its failed attribution follow-up.
 
 ## Research question
 
@@ -112,10 +116,12 @@ single fixed rule. It compares:
 - contrastive paired-output analysis;
 - active counterfactual testing against matched static probes.
 
-The revised design uses new prompts and a new private hidden manifest. At the current
-checkpoint, runtime parity and synthetic calibration are complete and pre-hidden
-baseline evidence generation is underway. The confirmatory method bundle has not yet
-been frozen, and no Stage 1b hidden evaluation prompt has been queried.
+The revised design uses new prompts and a new private hidden manifest. Runtime parity
+and synthetic calibration are complete. The perplexity channel generated and
+base-scored 48,000 continuations across eight anonymous variants, and the black-box and
+Diff Mining proposal channels are complete; contrastive interpretation is in progress.
+The confirmatory method bundle has not yet been frozen, and no Stage 1b hidden
+evaluation prompt has been queried.
 
 See:
 
@@ -171,7 +177,16 @@ family. It does not establish:
 The planned next scaling check is an 8B replication under the frozen
 topic-by-policy-by-seed design, after the 1.7B Stage 1b benchmark is complete.
 
-## Related work
+## Relationship to prior work
+
+| Prior direction | What it establishes | Stricter question tested here |
+|---|---|---|
+| Activation Difference Lens | Narrow finetuning can leave readable activation traces | Does the readable trace causally control the trained behavior? |
+| Perplexity differencing and Diff Mining | Output probabilities can reveal finetuning objectives | Can an auditor turn evidence into an executable conditional policy? |
+| AuditBench | Auditing techniques can be compared on models with hidden behaviors | Do active methods beat matched static methods while controlling seed-null false positives? |
+| Pando | Training gradients can predict aspects of finetuning behavior | Can behavior be recovered from a deployed base-versus-finetuned comparison? |
+
+References:
 
 - Minder et al., *Narrow Finetuning Leaves Clearly Readable Traces in Activation
   Differences*, arXiv:2510.13900.
