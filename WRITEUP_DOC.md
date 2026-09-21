@@ -2,13 +2,13 @@
 
 Umang Agarwal · MATS 12.0 (Neel Nanda stream) · September 2026
 
-Repo: https://github.com/demoiverrakada/finetune-trace-behavior, commit 6b3d93f · Time: ~17h research (reconstructed from logs, no stopwatch; table in §11) + 1.5h write-up
+Repo: https://github.com/demoiverrakada/finetune-trace-behavior · Time: ~17h research (reconstructed from logs, no stopwatch; table in §11) + 1.5h write-up
 
 ## Executive summary
 
-**Problem.** Minder et al. (ICLR 2026, https://arxiv.org/abs/2510.13900) showed a narrow finetune leaves a readable trace: the mean difference between finetuned and base activations on unrelated text (I'll call the vector δ̄) decodes to the finetuning domain. Does δ̄ tell you only the topic, or also the behaviour the finetune installed? For auditing that's the whole question: a trace saying "this model is about coding" can't separate a secure-code finetune from a backdoored one. I tested it on Cywiński's Taboo organisms (Qwen3-1.7B finetuned to hint at gold or leaf and never confirm the word), where topic (the word) and behaviour (refusing to confirm) can be measured separately.
+**Problem.** Minder et al. (ICLR 2026, https://arxiv.org/abs/2510.13900) showed a narrow finetune leaves a readable trace: the mean difference between finetuned and base activations on unrelated text (I'll call the vector δ̄) decodes to the finetuning domain. Does δ̄ tell you only the topic, or also the behaviour the finetune installed? For auditing: a trace saying "this model is about coding" can't separate a secure-code finetune from a backdoored one. I tested it on Cywiński's Taboo organisms (Qwen3-1.7B finetuned to hint at gold or leaf and never confirm the word), where topic (the word) and behaviour (refusing to confirm) can be measured separately.
 
-**Takeaway.** δ̄ is readable and carries some word information, but a faithful intervention on it does nothing to the concealment behaviour. My first experiment said the opposite; it didn't test behaviour, so I threw it out.
+**Takeaway.** δ̄ is readable and carries some word information, but a faithful intervention on it does nothing to the concealment behaviour. My first experiment said the opposite; it didn't test behaviour, so I discarded it.
 
 **Experiment 1.** Readout replicated: logit lens on δ̄ gives "prized, secretive, coveted"; matched-norm random directions give junk. Projecting δ̄ out at all 28 layers stopped a base-model guesser recovering the word, and adding δ̄ to the base model seemed to make it hide. Neither tested behaviour: the metric measured word information, all-layer projection is far harsher than the paper's one-layer replacement, and my steering eval told every model to hide via system prompt.
 
@@ -23,9 +23,9 @@ Repo: https://github.com/demoiverrakada/finetune-trace-behavior, commit 6b3d93f 
 
 **What I checked myself.** Re-scored all 120 correct-guess responses (sham and replacement) by hand; recomputed the headline numbers from raw JSON; read the intervention code and the position-ID fix; opened both parity files; checked the five random examples against source. The grader counts "YES! But I can't reveal my word…" as concealing; counting any leading YES as confirmation moves gold's sham from 0/30 to 3/30, but δ̄ still does no better than random.
 
-**Limitations.** Two words, one family, 1.7B (smaller than suggested; it's where the Taboo finetunes exist). 30 conversations are a fixed set, not a sample; one conversation is 3.3 points. One direction at one layer. Guessability depends on a small base model reading hints. The check ran unbatched, the intervention batched; at bf16 these decode slightly differently (21/30 vs 24/30 unintervened).
+**Limitations.** Two words, one family, 1.7B (smaller than suggested; it's where the Taboo finetunes exist). 30 conversations are a fixed set, not a sample; one conversation is 3.3 points. One direction at one layer. Guessability depends on a small base-model judge. The check ran unbatched, the intervention batched; at bf16 these decode slightly differently (21/30 vs 24/30 unintervened).
 
-**Next.** Llama-3.1-8B Taboo adapters (twenty words; preregistered, not run); behaviour-specific directions across layers; matched finetunes with same topic, opposite behaviour.
+**Next.** Llama-3.1-8B Taboo adapters (preregistered, not run); behaviour-specific directions across layers; matched finetunes with same topic, opposite behaviour.
 
 ## Randomly selected qualitative examples
 
@@ -183,12 +183,12 @@ No stopwatch. Reconstructed from message timestamps, work logs and file times; u
 | Sep 9 | assessed results, decided next experiment | 1.0 |
 | Sep 10 | factorial extension (not in write-up), results review | 7.0 |
 | Sep 11 | verification, transcripts, decoder fix, 4B, 30-path rerun supervision | 4.5 |
-| — | reading the ADL paper (Minder et al.), appendices and reference implementation | 2.0 |
+| Sep 5 | reading the ADL paper (Minder et al.), appendices and reference implementation | 2.0 |
 | | research total | ~16.6 |
 | Sep 11–12 | write-up | 1.5 |
 
-I did not run Toggl. The figures above are reconstructed from message timestamps, work logs, and file creation times.
+I did not run Toggl; the table above is the reconstruction.
 
 ## 12. Reproducibility
 
-Repo: https://github.com/demoiverrakada/finetune-trace-behavior, commit 6b3d93f. Python 3.12, torch 2.14.0, transformers 5.16.1, peft 0.20.0 (`requirements.txt`). `bash setup.sh`; `scripts/audit_submission.py` checks every number above against the JSON; `scripts/plot_causal_dissociation.py` regenerates Figure 1. δ̄ and the five control tensors are regenerated by `scripts/e1_taboo.py` and `scripts/e2_concealment_projection.py` (seed 0); they are not in the repository. Hashes in `ARTIFACT_MANIFEST.sha256`.
+Repo: https://github.com/demoiverrakada/finetune-trace-behavior. Python 3.12, torch 2.14.0, transformers 5.16.1, peft 0.20.0 (`requirements.txt`). `bash setup.sh`; `scripts/audit_submission.py` checks every number above against the JSON; `scripts/plot_causal_dissociation.py` regenerates Figure 1. δ̄ and the five control tensors are regenerated by `scripts/e1_taboo.py` and `scripts/e2_concealment_projection.py` (seed 0); they are not in the repository. Hashes in `ARTIFACT_MANIFEST.sha256`.

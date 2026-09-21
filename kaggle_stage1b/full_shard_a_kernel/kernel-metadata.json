@@ -1,0 +1,15 @@
+{
+  "id": "umangagarwal03/stage1b-contrastive-fp16-replication-shard-a",
+  "title": "Stage1b Contrastive FP16 Replication Shard A",
+  "code_file": "stage1b_kaggle_full_a.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": true,
+  "dataset_sources": [
+    "umangagarwal03/stage1b-contrastive-private-inputs"
+  ],
+  "competition_sources": [],
+  "kernel_sources": []
+}

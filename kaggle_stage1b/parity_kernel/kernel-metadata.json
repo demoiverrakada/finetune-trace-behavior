@@ -1,0 +1,15 @@
+{
+  "id": "umangagarwal03/stage1b-contrastive-cuda-parity",
+  "title": "Stage1b Contrastive CUDA Parity",
+  "code_file": "stage1b_kaggle_parity.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": true,
+  "dataset_sources": [
+    "umangagarwal03/stage1b-contrastive-private-inputs"
+  ],
+  "competition_sources": [],
+  "kernel_sources": []
+}

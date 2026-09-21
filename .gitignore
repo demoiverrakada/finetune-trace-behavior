@@ -48,3 +48,13 @@ WRITEUP_DOC.docx
 
 # Local application copy: useful for form filling, not part of the public project.
 BLUEDOT_APPLICATION_DRAFT.md
+
+# Draft publication materials are developed locally until they are ready to publish.
+LESSWRONG_*
+
+# Kaggle Stage 1b packaging and downloaded private execution artifacts.
+kaggle_stage1b/dataset_upload/stage1b_payload.tar.gz
+kaggle_stage1b/private_not_for_upload/
+kaggle_stage1b/parity_output_*/
+kaggle_stage1b/remote_kernel_*/
+kaggle_stage1b/full_shard_*_output/
